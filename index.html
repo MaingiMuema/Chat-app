@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="registerForm">
+    <h2>User Registration</h2>
+    <form id="registrationForm" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+</div>
+
+<div id="loginForm">
+    <h2>User Login</h2>
+    <form id="loginForm" method="POST">
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" name="loginUsername" required>
+        <br>
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" name="loginPassword" required>
+        <br>
+        <button type="button" onclick="loginUser()">Login</button>
+    </form>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
