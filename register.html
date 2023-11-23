@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User Login</title>
+    <title>User Registration</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -9,8 +9,8 @@
             color: #fff; /* Text color */
             text-align: center;
         }
-        
-        .login-container {
+
+        .container {
             width: 500px;
             margin: 0 auto;
             background-color: #1e1e1e; /* Darker background color */
@@ -22,27 +22,20 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         h2, p {
             color: #61dafb; /* Light blue color */
         }
-        
+
         a {
             text-decoration: none;
             color: #61dafb; /* Light blue color */
         }
-        
+
         a:hover {
             text-decoration: underline;
         }
-        
-        label {
-            display: block;
-            margin-left: 0 !important;
-            margin-top: 10px;
-            color: #fff; /* White color for labels */
-        }
-        
+
         input {
             width: 70%;
             padding: 15px;
@@ -52,43 +45,50 @@
             background-color: #1e1e1e; /* Darker background color */
             color: #fff; /* White text color */
         }
-        
+
         input[type="submit"] {
             background-color: #61dafb; /* Light blue color */
             color: #fff; /* White text color */
             border: none;
             cursor: pointer;
         }
-        
+
         input[type="submit"]:hover {
             background-color: #4fa3d1; /* Slightly darker blue on hover */
-        }        
-    </style>
-    <script src="js/validation.js"></script>
-    <script>
-        function validateForm() {
-            var phone = document.forms["LoginForm"]["phone"].value;
-            console.log(phone);
-
-            if (!validatePhoneNumber(phone)) {
-                alert("Please enter a valid phone number with a country code (e.g., +2547XXXXXXXX).");
-                return false; // Prevent form submission
-            }
         }
-    </script>
+    </style>
+     <script src="js/validation.js"></script>
+     <script>
+         function validateForm() {
+             var phone = document.forms["RegisterForm"]["phone"].value;
+             console.log(phone);
+ 
+             if (!validatePhoneNumber(phone)) {
+                 alert("Please enter a valid phone number with a country code (e.g., +2547XXXXXXXX).");
+                 return false; // Prevent form submission
+             }
+         }
+     </script>
 </head>
 <body>
-    <div class="login-container">
-        <h2>LOGIN TO YOUR ACCOUNT</h2>
-        <form method="post" name="LoginForm" action="php/submit.php">
-            <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+    <div class="container">
+        <h2>CREATE AN ACCOUNT</h2>
+        <form action="php/submit.php" method="post" name="RegisterForm">
+            <!-- Name Input Field -->
+            <div class="form-group">
+                <input type="text" id="name" name="name" required placeholder="Enter your name">
+            </div>
 
-            <input type="password" id="pin" name="pin" required placeholder="Enter your PIN">
+            <!-- Phone Number Input Field -->
+            <div class="form-group">
+                <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+            </div>
 
-            <input type="submit" value="Login" name="Login" onclick="return validateForm();">
+            <!-- Submit Button -->
+            <input onclick="return validateForm()" type="submit" name="Register"  value="Register">
         </form>
         <div>
-            <p>Don't have an account? <a href="register.html">Register</a></p>
+            <p>Already have an account? <a href="index.html">Login</a></p>
         </div>
     </div>
 </body>

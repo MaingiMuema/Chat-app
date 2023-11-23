@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create TextWave Message</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #282c34; /* Dark background color */
+            color: #fff; /* Text color */
+            text-align: center;
+        }
+
+        .management-container {
+            width: 800px;
+            margin: 0 auto;
+            background-color: #1e1e1e; /* Darker background color */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* White box shadow */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding-bottom: 150px;
+        }
+
+        h2, p {
+            color: #61dafb; /* Light blue color */
+        }
+
+        a {
+            text-decoration: none;
+            color: #61dafb; /* Light blue color */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .phone-number-list input[type="text"] {
+            width: 80%;
+            font-size: larger;
+            padding: 10px;
+            margin: 5px 0;
+            border: None;
+            border-radius: 3px;
+            background-color: #1e1e1e; /* Darker background color */
+            color: #fff; /* White text color */
+        }
+
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin: 5px 0;
+            font-size: larger;
+            border: 1px solid #61dafb; /* Light blue border */
+            border-radius: 60px;
+            background-color: #1e1e1e; /* Darker background color */
+            color: #fff; /* White text color */
+        }
+
+        .phone-number-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: #4CAF50 solid 0.5px;
+        }
+
+        .phone-number-row input[type="text"] {
+            flex: 1;
+        }
+
+        input[type="submit"] {
+            color: #fff;
+            padding: 10px 20px;
+            margin: 2px;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+        }
+
+        input[type="submit"].logout {
+            color: #2e41e4;
+            padding: 10px 20px;
+            margin: 25px;
+            font-size: larger;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+        }
+
+        input[name="edit"] {
+            background-color: #6a6e72;
+        }
+
+        input[name="edit"]:hover {
+            background-color: #4CAF50;
+        }
+
+        input[name="delete"] {
+            background-color: #ff0000;
+        }
+
+        input[name="delete"]:hover {
+            background-color: #6a6e72;
+        }
+
+        .add {
+            background-color: #4CAF50;
+            padding: 10px 20px !important;
+            font-size: larger;
+        }
+
+        .add:hover {
+            background-color: #45a049;
+        }
+
+        .message-container h2 {
+            margin-top: 75px;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #1e1e1e; /* Darker background color */
+            color: #fff; /* White text color */
+        }
+    </style>
+</head>
+<body>
+    <div class="message-container">
+        <h2>Create your SMS</h2>
+        <form action="php/submit.php" method="post">
+            <label for="recipient">Recipient:</label>
+            <input type="text" id="recipient" name="recipient" required placeholder="Enter recipient's number">
+            <button type="button" id="add-recipient">Add Recipient</button>
+
+            <ul id="recipient-list"></ul>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required placeholder="Enter your message here"></textarea>
+
+            <input type="submit" value="Send SMS">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addRecipientButton = document.getElementById('add-recipient');
+            const recipientInput = document.getElementById('recipient');
+            const recipientList = document.getElementById('recipient-list');
+            const hiddenRecipientInput = document.createElement('input');
+            hiddenRecipientInput.type = 'hidden';
+            hiddenRecipientInput.name = 'recipients';
+
+            addRecipientButton.addEventListener('click', function() {
+                const recipientValue = recipientInput.value.trim();
+                if (recipientValue !== '') {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'recipient-item';
+                    
+                    const recipientText = document.createElement('span');
+                    recipientText.textContent = recipientValue;
+                    listItem.appendChild(recipientText);
+                    
+                    const deleteButton = document.createElement('button');
+                    deleteButton.className = 'delete-recipient';
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.addEventListener('click', function() {
+                        listItem.remove();
+                        updateHiddenInput();
+                    });
+                    listItem.appendChild(deleteButton);
+                    
+                    recipientList.appendChild(listItem);
+                    recipientInput.value = ''; // Clear the input field after adding
+
+                    updateHiddenInput();
+                }
+            });
+
+            function updateHiddenInput() {
+                const recipientValues = Array.from(recipientList.querySelectorAll('span')).map(item => item.textContent);
+                hiddenRecipientInput.value = recipientValues.join('\n');
+            }
+
+            // Append the hidden input to the form
+            const form = document.querySelector('form');
+            form.appendChild(hiddenRecipientInput);
+        });
+    </script>
+</body>
+</html>
